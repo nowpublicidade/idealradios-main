@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ideal Rádios do Brasil</title>
+    <meta name="description" content="Ideal Rádios do Brasil - Locação e venda de rádios comunicadores profissionais Hytera e Motorola.">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <meta property="og:title" content="Ideal Rádios do Brasil">
+  <meta name="twitter:title" content="Ideal Rádios do Brasil">
+  <meta property="og:description" content="Ideal Rádios do Brasil - Locação e venda de rádios comunicadores profissionais Hytera e Motorola.">
+  <meta name="twitter:description" content="Ideal Rádios do Brasil - Locação e venda de rádios comunicadores profissionais Hytera e Motorola.">
+  <meta property="og:image" content="https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/5fe36d56-aebd-4516-941b-e068cebf43aa">
+  <meta name="twitter:image" content="https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/5fe36d56-aebd-4516-941b-e068cebf43aa">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:type" content="website">
+</head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // GitHub Pages SPA redirect handler: reads ?p= from 404.html redirect
+      (function() {
+        var params = new URLSearchParams(window.location.search);
+        var redirectPath = params.get('p');
+        if (!redirectPath) return;
+
+        var basePath = window.location.pathname.endsWith('/')
+          ? window.location.pathname.slice(0, -1)
+          : window.location.pathname;
+        var normalizedPath = redirectPath.startsWith('/')
+          ? redirectPath
+          : '/' + redirectPath;
+
+        window.history.replaceState(null, '', basePath + normalizedPath);
+      })();
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
