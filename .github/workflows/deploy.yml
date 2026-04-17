@@ -20,8 +20,8 @@ jobs:
       - run: npm install
       - run: npm run build
         env:
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
+          VITE_SUPABASE_URL: "https://vzukxjaouemetmwzapkw.supabase.co"
+          VITE_SUPABASE_PUBLISHABLE_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ6dWt4amFvdWVtZXRtd3phcGt3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3NTI2NjksImV4cCI6MjA5MTMyODY2OX0.mlXCAcwCGncZxsE9Tcbwpxroc5QqjeAkL-_tN4DwWE4"
       - uses: actions/configure-pages@v4
       - uses: actions/upload-pages-artifact@v3
         with:
