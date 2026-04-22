@@ -12,23 +12,31 @@ const ms4 = { fontFamily: "'Montserrat', sans-serif", fontWeight: 400 };
 const ms5 = { fontFamily: "'Montserrat', sans-serif", fontWeight: 500 };
 const ms6 = { fontFamily: "'Montserrat', sans-serif", fontWeight: 600 };
 
+const inputStyle = {
+  ...ms4,
+  background: "rgba(255,255,255,0.07)",
+  border: "1px solid rgba(100,200,245,0.20)",
+  color: "white",
+};
+
 const CTAFormSection = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ nome: "", empresa: "", telefone: "", necessidade: "" });
+  const [form, setForm] = useState({ nome: "", empresa: "", cnpj: "", telefone: "", necessidade: "" });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.nome.trim() || !form.telefone.trim()) {
-      toast({ title: "Preencha pelo menos nome e WhatsApp", variant: "destructive" });
+    if (!form.nome.trim() || !form.empresa.trim() || !form.cnpj.trim() || !form.telefone.trim() || !form.necessidade) {
+      toast({ title: "Preencha todos os campos obrigatórios", variant: "destructive" });
       return;
     }
     setLoading(true);
     const { error } = await supabase.from("leads").insert({
       nome: form.nome.trim(),
-      empresa: form.empresa.trim() || null,
+      empresa: form.empresa.trim(),
+      cnpj: form.cnpj.trim(),
       telefone: form.telefone.trim(),
-      necessidade: form.necessidade || null,
+      necessidade: form.necessidade,
     });
     setLoading(false);
     if (error) {
@@ -37,7 +45,7 @@ const CTAFormSection = () => {
     }
     (window as any).gtag?.("event", "contact", { event_category: "lead", event_label: "formulario" });
     toast({ title: "Proposta solicitada com sucesso! Entraremos em contato em breve." });
-    setForm({ nome: "", empresa: "", telefone: "", necessidade: "" });
+    setForm({ nome: "", empresa: "", cnpj: "", telefone: "", necessidade: "" });
   };
 
   return (
@@ -54,17 +62,11 @@ const CTAFormSection = () => {
         {/* orbs */}
         <div
           className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none"
-          style={{
-            background: "radial-gradient(circle, rgba(91,200,239,0.20) 0%, transparent 65%)",
-            filter: "blur(100px)",
-          }}
+          style={{ background: "radial-gradient(circle, rgba(91,200,239,0.20) 0%, transparent 65%)", filter: "blur(100px)" }}
         />
         <div
           className="absolute bottom-0 left-0 w-64 h-64 rounded-full pointer-events-none"
-          style={{
-            background: "radial-gradient(circle, rgba(14,74,173,0.18) 0%, transparent 65%)",
-            filter: "blur(80px)",
-          }}
+          style={{ background: "radial-gradient(circle, rgba(14,74,173,0.18) 0%, transparent 65%)", filter: "blur(80px)" }}
         />
 
         <div className="container mx-auto px-4 relative z-10">
@@ -78,8 +80,7 @@ const CTAFormSection = () => {
                 Solicite sua proposta agora
               </h2>
               <p style={{ ...ms4, color: "rgba(200,233,248,0.78)" }} className="text-lg">
-                Preencha o formulário e nossa equipe retorna em até 2 horas úteis com a melhor solução para sua
-                operação.
+                Preencha o formulário e nossa equipe retorna em até 2 horas úteis com a melhor solução para sua operação.
               </p>
               <div className="space-y-3 pt-4">
                 <a
@@ -121,29 +122,31 @@ const CTAFormSection = () => {
                   onChange={(e) => setForm({ ...form, nome: e.target.value })}
                   placeholder="Seu nome"
                   maxLength={100}
-                  style={{
-                    ...ms4,
-                    background: "rgba(255,255,255,0.07)",
-                    border: "1px solid rgba(100,200,245,0.20)",
-                    color: "white",
-                  }}
+                  style={inputStyle}
                   className="placeholder:text-white/30 focus:border-[#5bc8ef]/50"
                 />
               </div>
               {/* Empresa */}
               <div className="space-y-2">
-                <Label style={{ ...ms6, color: "rgba(200,233,248,0.90)" }}>Empresa</Label>
+                <Label style={{ ...ms6, color: "rgba(200,233,248,0.90)" }}>Empresa *</Label>
                 <Input
                   value={form.empresa}
                   onChange={(e) => setForm({ ...form, empresa: e.target.value })}
                   placeholder="Nome da empresa"
                   maxLength={100}
-                  style={{
-                    ...ms4,
-                    background: "rgba(255,255,255,0.07)",
-                    border: "1px solid rgba(100,200,245,0.20)",
-                    color: "white",
-                  }}
+                  style={inputStyle}
+                  className="placeholder:text-white/30 focus:border-[#5bc8ef]/50"
+                />
+              </div>
+              {/* CNPJ */}
+              <div className="space-y-2">
+                <Label style={{ ...ms6, color: "rgba(200,233,248,0.90)" }}>CNPJ *</Label>
+                <Input
+                  value={form.cnpj}
+                  onChange={(e) => setForm({ ...form, cnpj: e.target.value })}
+                  placeholder="00.000.000/0000-00"
+                  maxLength={18}
+                  style={inputStyle}
                   className="placeholder:text-white/30 focus:border-[#5bc8ef]/50"
                 />
               </div>
@@ -153,20 +156,15 @@ const CTAFormSection = () => {
                 <Input
                   value={form.telefone}
                   onChange={(e) => setForm({ ...form, telefone: e.target.value })}
-                  placeholder="(11) 2759-2520"
+                  placeholder="(11) 99999-9999"
                   maxLength={20}
-                  style={{
-                    ...ms4,
-                    background: "rgba(255,255,255,0.07)",
-                    border: "1px solid rgba(100,200,245,0.20)",
-                    color: "white",
-                  }}
+                  style={inputStyle}
                   className="placeholder:text-white/30 focus:border-[#5bc8ef]/50"
                 />
               </div>
               {/* Necessidade */}
               <div className="space-y-2">
-                <Label style={{ ...ms6, color: "rgba(200,233,248,0.90)" }}>Necessidade</Label>
+                <Label style={{ ...ms6, color: "rgba(200,233,248,0.90)" }}>Necessidade *</Label>
                 <Select value={form.necessidade} onValueChange={(v) => setForm({ ...form, necessidade: v })}>
                   <SelectTrigger
                     style={{
@@ -179,21 +177,11 @@ const CTAFormSection = () => {
                     <SelectValue placeholder="Selecione" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="locacao" style={ms4}>
-                      Locação de rádios
-                    </SelectItem>
-                    <SelectItem value="compra" style={ms4}>
-                      Compra de equipamentos
-                    </SelectItem>
-                    <SelectItem value="assistencia" style={ms4}>
-                      Assistência técnica
-                    </SelectItem>
-                    <SelectItem value="sistemas" style={ms4}>
-                      Sistemas e infraestrutura
-                    </SelectItem>
-                    <SelectItem value="outro" style={ms4}>
-                      Outro
-                    </SelectItem>
+                    <SelectItem value="locacao" style={ms4}>Locação de rádios</SelectItem>
+                    <SelectItem value="compra" style={ms4}>Compra de equipamentos</SelectItem>
+                    <SelectItem value="assistencia" style={ms4}>Assistência técnica</SelectItem>
+                    <SelectItem value="sistemas" style={ms4}>Sistemas e infraestrutura</SelectItem>
+                    <SelectItem value="outro" style={ms4}>Outro</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

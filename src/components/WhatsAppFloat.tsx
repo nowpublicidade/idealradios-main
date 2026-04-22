@@ -34,23 +34,24 @@ interface WhatsAppModalProps {
 export const WhatsAppModal = ({ isOpen, onClose }: WhatsAppModalProps) => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ nome: "", empresa: "", telefone: "", necessidade: "" });
+  const [form, setForm] = useState({ nome: "", empresa: "", cnpj: "", telefone: "", necessidade: "" });
 
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.nome.trim() || !form.telefone.trim()) {
-      toast({ title: "Preencha pelo menos nome e WhatsApp", variant: "destructive" });
+    if (!form.nome.trim() || !form.empresa.trim() || !form.cnpj.trim() || !form.telefone.trim() || !form.necessidade) {
+      toast({ title: "Preencha todos os campos obrigatórios", variant: "destructive" });
       return;
     }
 
     setLoading(true);
     await supabase.from("leads").insert({
       nome: form.nome.trim(),
-      empresa: form.empresa.trim() || null,
+      empresa: form.empresa.trim(),
+      cnpj: form.cnpj.trim(),
       telefone: form.telefone.trim(),
-      necessidade: form.necessidade || null,
+      necessidade: form.necessidade,
     });
     setLoading(false);
 
@@ -60,7 +61,7 @@ export const WhatsAppModal = ({ isOpen, onClose }: WhatsAppModalProps) => {
       : `Olá, meu nome é ${form.nome.trim()} e gostaria de saber mais sobre as soluções da Ideal.`;
 
     (window as any).gtag?.("event", "click_to_chat", { event_category: "lead", event_label: "whatsapp" });
-    setForm({ nome: "", empresa: "", telefone: "", necessidade: "" });
+    setForm({ nome: "", empresa: "", cnpj: "", telefone: "", necessidade: "" });
     onClose();
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
   };
@@ -112,12 +113,24 @@ export const WhatsAppModal = ({ isOpen, onClose }: WhatsAppModalProps) => {
           </div>
 
           <div className="space-y-1">
-            <Label className="text-xs" style={{ ...ms6, color: "rgba(200,233,248,0.85)" }}>Empresa</Label>
+            <Label className="text-xs" style={{ ...ms6, color: "rgba(200,233,248,0.85)" }}>Empresa *</Label>
             <Input
               value={form.empresa}
               onChange={(e) => setForm({ ...form, empresa: e.target.value })}
               placeholder="Nome da empresa"
               maxLength={100}
+              style={{ ...ms4, background: "rgba(255,255,255,0.07)", border: "1px solid rgba(100,200,245,0.20)", color: "white" }}
+              className="placeholder:text-white/30 focus:border-[#5bc8ef]/50 h-9 text-sm"
+            />
+          </div>
+
+          <div className="space-y-1">
+            <Label className="text-xs" style={{ ...ms6, color: "rgba(200,233,248,0.85)" }}>CNPJ *</Label>
+            <Input
+              value={form.cnpj}
+              onChange={(e) => setForm({ ...form, cnpj: e.target.value })}
+              placeholder="00.000.000/0000-00"
+              maxLength={18}
               style={{ ...ms4, background: "rgba(255,255,255,0.07)", border: "1px solid rgba(100,200,245,0.20)", color: "white" }}
               className="placeholder:text-white/30 focus:border-[#5bc8ef]/50 h-9 text-sm"
             />
@@ -136,7 +149,7 @@ export const WhatsAppModal = ({ isOpen, onClose }: WhatsAppModalProps) => {
           </div>
 
           <div className="space-y-1">
-            <Label className="text-xs" style={{ ...ms6, color: "rgba(200,233,248,0.85)" }}>Necessidade</Label>
+            <Label className="text-xs" style={{ ...ms6, color: "rgba(200,233,248,0.85)" }}>Necessidade *</Label>
             <Select value={form.necessidade} onValueChange={(v) => setForm({ ...form, necessidade: v })}>
               <SelectTrigger
                 className="h-9 text-sm"
