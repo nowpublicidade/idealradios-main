@@ -48,7 +48,7 @@ const CTAFormSection = () => {
       return;
     }
     (window as any).gtag?.("event", "contact", { event_category: "lead", event_label: "formulario" });
-    sendToCrm({ nome: form.nome.trim(), empresa: form.empresa.trim(), telefone: form.telefone.trim(), necessidade: form.necessidade }, utm);
+    sendToCrm({ nome: form.nome.trim(), empresa: form.empresa.trim(), cnpj: form.cnpj.trim(), telefone: form.telefone.trim(), necessidade: form.necessidade }, utm);
     toast({ title: "Proposta solicitada com sucesso! Entraremos em contato em breve." });
     setForm({ nome: "", empresa: "", cnpj: "", telefone: "", necessidade: "" });
   };

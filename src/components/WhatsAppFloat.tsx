@@ -65,7 +65,7 @@ export const WhatsAppModal = ({ isOpen, onClose }: WhatsAppModalProps) => {
       : `Olá, meu nome é ${form.nome.trim()} e gostaria de saber mais sobre as soluções da Ideal.`;
 
     (window as any).gtag?.("event", "click_to_chat", { event_category: "lead", event_label: "whatsapp" });
-    sendToCrm({ nome: form.nome.trim(), empresa: form.empresa.trim(), telefone: form.telefone.trim(), necessidade: form.necessidade }, utm);
+    sendToCrm({ nome: form.nome.trim(), empresa: form.empresa.trim(), cnpj: form.cnpj.trim(), telefone: form.telefone.trim(), necessidade: form.necessidade }, utm);
     setForm({ nome: "", empresa: "", cnpj: "", telefone: "", necessidade: "" });
     onClose();
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
