@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useUtmParams } from "@/hooks/useUtmParams";
+import { sendToCrm } from "@/lib/crm";
 import { MessageCircle, Mail, Loader2 } from "lucide-react";
 
 const ms = { fontFamily: "'Montserrat', sans-serif", fontWeight: 700 };
@@ -47,6 +48,7 @@ const CTAFormSection = () => {
       return;
     }
     (window as any).gtag?.("event", "contact", { event_category: "lead", event_label: "formulario" });
+    sendToCrm({ nome: form.nome.trim(), empresa: form.empresa.trim(), telefone: form.telefone.trim(), necessidade: form.necessidade }, utm);
     toast({ title: "Proposta solicitada com sucesso! Entraremos em contato em breve." });
     setForm({ nome: "", empresa: "", cnpj: "", telefone: "", necessidade: "" });
   };

@@ -13,6 +13,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useUtmParams } from "@/hooks/useUtmParams";
+import { sendToCrm } from "@/lib/crm";
 
 const ms = { fontFamily: "'Montserrat', sans-serif", fontWeight: 700 };
 const ms4 = { fontFamily: "'Montserrat', sans-serif", fontWeight: 400 };
@@ -64,6 +65,7 @@ export const WhatsAppModal = ({ isOpen, onClose }: WhatsAppModalProps) => {
       : `Olá, meu nome é ${form.nome.trim()} e gostaria de saber mais sobre as soluções da Ideal.`;
 
     (window as any).gtag?.("event", "click_to_chat", { event_category: "lead", event_label: "whatsapp" });
+    sendToCrm({ nome: form.nome.trim(), empresa: form.empresa.trim(), telefone: form.telefone.trim(), necessidade: form.necessidade }, utm);
     setForm({ nome: "", empresa: "", cnpj: "", telefone: "", necessidade: "" });
     onClose();
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
