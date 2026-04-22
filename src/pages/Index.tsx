@@ -13,6 +13,7 @@ import FAQSection from "@/components/FAQSection";
 import CTAFormSection from "@/components/CTAFormSection";
 import Footer from "@/components/Footer";
 import { SectionReveal } from "@/components/SectionReveal";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 const Index = () => {
   return (
@@ -78,6 +79,7 @@ const Index = () => {
       </SectionReveal>
 
       <Footer />
+      <WhatsAppFloat />
     </div>
   );
 };

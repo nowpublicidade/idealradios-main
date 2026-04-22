@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 import {
   Leaf,
   Battery,
@@ -1525,6 +1526,7 @@ const IdealElectricWay = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      <WhatsAppFloat />
     </div>
   );
 };
