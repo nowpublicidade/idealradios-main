@@ -46,6 +46,7 @@ const WhatsAppFloat = () => {
       ? `Olá, meu nome é ${form.nome.trim()} e sou da empresa ${empresa} e gostaria de saber mais sobre as soluções da Ideal.`
       : `Olá, meu nome é ${form.nome.trim()} e gostaria de saber mais sobre as soluções da Ideal.`;
 
+    (window as any).gtag?.("event", "click_to_chat", { event_category: "lead", event_label: "whatsapp" });
     setForm({ nome: "", empresa: "", telefone: "", necessidade: "" });
     setOpen(false);
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");

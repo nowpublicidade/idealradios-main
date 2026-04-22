@@ -35,6 +35,7 @@ const CTAFormSection = () => {
       toast({ title: "Erro ao enviar. Tente novamente.", variant: "destructive" });
       return;
     }
+    (window as any).gtag?.("event", "contact", { event_category: "lead", event_label: "formulario" });
     toast({ title: "Proposta solicitada com sucesso! Entraremos em contato em breve." });
     setForm({ nome: "", empresa: "", telefone: "", necessidade: "" });
   };
