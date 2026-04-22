@@ -8,6 +8,7 @@ interface LeadData {
   empresa: string;
   telefone: string;
   necessidade: string;
+  cnpj: string; 
 }
 
 export async function sendToCrm(lead: LeadData, utm: UtmParams): Promise<void> {
@@ -22,7 +23,7 @@ export async function sendToCrm(lead: LeadData, utm: UtmParams): Promise<void> {
     campaign: utm.gad_campaignid ?? "",
     ad: utm.utm_content ?? "",
     audience: utm.utm_term ?? "",
-    notes: lead.necessidade,
+    notes: `${lead.necessidade} | CNPJ: ${lead.cnpj}`,
     meta_lead_id: utm.gclid ?? "",
   };
 
