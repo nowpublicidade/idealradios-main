@@ -162,7 +162,7 @@ export const WhatsAppModal = ({ isOpen, onClose }: WhatsAppModalProps) => {
               >
                 <SelectValue placeholder="Selecione" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="z-[300]">
                 <SelectItem value="locacao" style={ms4}>Locação de rádios</SelectItem>
                 <SelectItem value="compra" style={ms4}>Compra de equipamentos</SelectItem>
                 <SelectItem value="assistencia" style={ms4}>Assistência técnica</SelectItem>
