@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useUtmParams } from "@/hooks/useUtmParams";
 import { MessageCircle, Mail, Loader2 } from "lucide-react";
 
 const ms = { fontFamily: "'Montserrat', sans-serif", fontWeight: 700 };
@@ -21,6 +22,7 @@ const inputStyle = {
 
 const CTAFormSection = () => {
   const { toast } = useToast();
+  const utm = useUtmParams();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ nome: "", empresa: "", cnpj: "", telefone: "", necessidade: "" });
 
@@ -37,6 +39,7 @@ const CTAFormSection = () => {
       cnpj: form.cnpj.trim(),
       telefone: form.telefone.trim(),
       necessidade: form.necessidade,
+      ...utm,
     });
     setLoading(false);
     if (error) {

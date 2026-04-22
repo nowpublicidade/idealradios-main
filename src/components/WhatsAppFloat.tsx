@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useUtmParams } from "@/hooks/useUtmParams";
 
 const ms = { fontFamily: "'Montserrat', sans-serif", fontWeight: 700 };
 const ms4 = { fontFamily: "'Montserrat', sans-serif", fontWeight: 400 };
@@ -33,6 +34,7 @@ interface WhatsAppModalProps {
 
 export const WhatsAppModal = ({ isOpen, onClose }: WhatsAppModalProps) => {
   const { toast } = useToast();
+  const utm = useUtmParams();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ nome: "", empresa: "", cnpj: "", telefone: "", necessidade: "" });
 
@@ -52,6 +54,7 @@ export const WhatsAppModal = ({ isOpen, onClose }: WhatsAppModalProps) => {
       cnpj: form.cnpj.trim(),
       telefone: form.telefone.trim(),
       necessidade: form.necessidade,
+      ...utm,
     });
     setLoading(false);
 
