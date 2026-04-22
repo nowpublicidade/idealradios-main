@@ -10,6 +10,7 @@ const HeroSection = () => {
   const [waOpen, setWaOpen] = useState(false);
 
   return (
+    <>
     <section
       className="relative min-h-screen flex items-center overflow-hidden pt-16"
       style={{ background: "#0a2a5e" }}
@@ -193,6 +194,7 @@ const HeroSection = () => {
       </div>
     </section>
     <WhatsAppModal isOpen={waOpen} onClose={() => setWaOpen(false)} />
+    </>
   );
 };
 
