@@ -151,7 +151,7 @@ const RadioCard = ({ radio, brand }: { radio: (typeof hyteraRadios)[0]; brand: B
         style={ms}
       >
         <a href="#contato">
-          {brand === "hytera" ? "Solicitar cotação" : "Solicitar assistência"}
+          Solicitar cotação
         </a>
       </Button>
     </div>
