@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import { asset } from "@/lib/assets";
+import { WhatsAppModal } from "@/components/WhatsAppFloat";
 
 const ms700 = { fontFamily: "'Montserrat', sans-serif", fontWeight: 700 };
 const ms600 = { fontFamily: "'Montserrat', sans-serif", fontWeight: 600 };
@@ -17,6 +18,7 @@ const navLinks = [
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [waOpen, setWaOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -83,8 +85,8 @@ const Navbar = () => {
           </div>
 
           {/* CTA */}
-          <a
-            href="#contato"
+          <button
+            onClick={() => setWaOpen(true)}
             className="hidden md:inline-flex items-center gap-2 text-sm text-white rounded-xl px-4 py-2 transition-all duration-200 hover:scale-105 active:scale-95"
             style={{
               ...ms700,
@@ -94,7 +96,7 @@ const Navbar = () => {
           >
             <Phone size={14} />
             Solicitar cotação
-          </a>
+          </button>
 
           {/* Mobile toggle */}
           <button
@@ -140,9 +142,8 @@ const Navbar = () => {
             >
               Ideal Electric Way
             </Link>
-            <a
-              href="#contato"
-              onClick={() => setOpen(false)}
+            <button
+              onClick={() => { setOpen(false); setWaOpen(true); }}
               className="flex items-center justify-center gap-2 w-full text-sm text-white rounded-xl px-4 py-2.5 mt-2"
               style={{
                 ...ms700,
@@ -152,10 +153,11 @@ const Navbar = () => {
             >
               <Phone size={14} />
               Solicitar cotação
-            </a>
+            </button>
           </div>
         )}
       </div>
+      <WhatsAppModal isOpen={waOpen} onClose={() => setWaOpen(false)} />
     </>
   );
 };
