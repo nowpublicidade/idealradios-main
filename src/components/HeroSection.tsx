@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { MessageCircle } from "lucide-react";
 import { asset } from "@/lib/assets";
+import { WhatsAppModal } from "@/components/WhatsAppFloat";
 
 const ms = { fontFamily: "'Montserrat', sans-serif", fontWeight: 700 };
 
 const HeroSection = () => {
+  const [waOpen, setWaOpen] = useState(false);
+
   return (
     <section
       className="relative min-h-screen flex items-center overflow-hidden pt-16"
@@ -99,10 +103,10 @@ const HeroSection = () => {
                   color: "#c8e9f8",
                 }}
               >
-                <a href="https://wa.me/551127592520" target="_blank" rel="noopener noreferrer">
+                <button onClick={() => setWaOpen(true)} className="flex items-center">
                   <MessageCircle size={18} className="mr-2" />
                   Falar no WhatsApp
-                </a>
+                </button>
               </Button>
             </div>
 
@@ -188,6 +192,7 @@ const HeroSection = () => {
         </div>
       </div>
     </section>
+    <WhatsAppModal isOpen={waOpen} onClose={() => setWaOpen(false)} />
   );
 };
 
