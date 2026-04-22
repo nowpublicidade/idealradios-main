@@ -59,7 +59,7 @@ const RadiosMotorolaSection = () => {
                       size="sm"
                       className="flex-1 bg-gradient-to-r from-ideal-500 to-ideal-400 text-primary-foreground font-bold"
                     >
-                      <a href="#contato">Solicitar assistência</a>
+                      <a href="#contato">Solicitar cotação</a>
                     </Button>
                     <Button
                       asChild
